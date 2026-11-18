@@ -98,11 +98,17 @@ class UnifiedVideoLLMEngine:
             max_pixels=self.max_pixels,
         )
 
+        pretrained_sig = inspect.signature(Qwen2_5_VLForConditionalGeneration.from_pretrained)
+        dtype_kwarg = "dtype" if "dtype" in pretrained_sig.parameters else "torch_dtype"
+        model_load_kwargs: dict[str, Any] = {
+            dtype_kwarg: resolved_dtype,
+            "attn_implementation": resolved_attn,
+            "device_map": self.device_map,
+        }
+
         self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
             self.model_name_or_path,
-            torch_dtype=resolved_dtype,
-            attn_implementation=resolved_attn,
-            device_map=self.device_map,
+            **model_load_kwargs,
         )
 
         if self.adapter_path:
@@ -114,17 +120,14 @@ class UnifiedVideoLLMEngine:
         self.model.eval()
 
         if hasattr(self.processor, "video_processor") and self.processor.video_processor is not None:
-            vp_sig = inspect.signature(self.processor.video_processor.__call__)
-            self._supports_do_sample_frames = "do_sample_frames" in vp_sig.parameters
+            vp = self.processor.video_processor
+            vp_sig = inspect.signature(vp.__call__)
+            self._supports_do_sample_frames = (
+                hasattr(vp, "do_sample_frames") or "do_sample_frames" in vp_sig.parameters
+            )
 
         fwd_sig = inspect.signature(self.model.forward)
-        self._accepts_second_per_grid_ts = (
-            "second_per_grid_ts" in fwd_sig.parameters
-            or any(
-                p.kind == inspect.Parameter.VAR_KEYWORD
-                for p in fwd_sig.parameters.values()
-            )
-        )
+        self._accepts_second_per_grid_ts = "second_per_grid_ts" in fwd_sig.parameters
 
         vision_cfg = getattr(self.model.config, "vision_config", None)
         if vision_cfg is not None and hasattr(vision_cfg, "temporal_patch_size"):
@@ -177,22 +180,28 @@ class UnifiedVideoLLMEngine:
         processor_kwargs: dict[str, Any] = {
             "text": [chat_prompt],
             "videos": [video_tensor_for_proc],
-            "fps": [chunk.effective_fps],
             "padding": True,
             "return_tensors": "pt",
         }
         if self._supports_do_sample_frames:
             processor_kwargs["do_sample_frames"] = False
+        else:
+            processor_kwargs["fps"] = float(chunk.effective_fps)
 
         model_inputs = self.processor(**processor_kwargs)
 
-        if (
-            self._accepts_second_per_grid_ts
-            and "second_per_grid_ts" not in model_inputs
-            and chunk.effective_fps > 0
-        ):
+        if self._accepts_second_per_grid_ts and chunk.effective_fps > 0:
+            num_videos = (
+                int(model_inputs["video_grid_thw"].shape[0])
+                if "video_grid_thw" in model_inputs
+                else 1
+            )
             sec_per_grid = float(self._temporal_patch_size) / float(chunk.effective_fps)
-            model_inputs["second_per_grid_ts"] = torch.tensor([sec_per_grid], dtype=torch.float32)
+            model_inputs["second_per_grid_ts"] = torch.full(
+                (num_videos,),
+                sec_per_grid,
+                dtype=torch.float32,
+            )
 
         target_dev = self.input_device
         model_inputs = {
