@@ -1,0 +1,145 @@
+{
+  "match_info": {
+    "competition": "Ngoại hạng Anh (Premier League) - Vòng 9",
+    "stadium": "Emirates Stadium (London)",
+    "home_team": "Arsenal",
+    "away_team": "Liverpool",
+    "home_coach": "Mikel Arteta",
+    "away_coach": "Arne Slot",
+    "kickoff_video_offset_sec": 0.0,
+    "second_half_video_offset_sec": 2700.0,
+    "initial_home_score": 0,
+    "initial_away_score": 0,
+    "home_formation": "4-3-3",
+    "away_formation": "4-2-3-1"
+  },
+  "lineups": {
+    "home_starting_xi": [
+      "#22 David Raya (GK)",
+      "#5 Thomas Partey",
+      "#4 Ben White",
+      "#6 Gabriel Magalhaes",
+      "#12 Jurrien Timber",
+      "#41 Declan Rice",
+      "#23 Mikel Merino",
+      "#19 Leandro Trossard",
+      "#7 Bukayo Saka (C)",
+      "#29 Kai Havertz",
+      "#11 Gabriel Martinelli"
+    ],
+    "away_starting_xi": [
+      "#62 Caoimhin Kelleher (GK)",
+      "#66 Trent Alexander-Arnold",
+      "#5 Ibrahima Konate",
+      "#4 Virgil van Dijk (C)",
+      "#26 Andrew Robertson",
+      "#38 Ryan Gravenberch",
+      "#10 Alexis Mac Allister",
+      "#11 Mohamed Salah",
+      "#17 Curtis Jones",
+      "#7 Luis Diaz",
+      "#9 Darwin Nunez"
+    ]
+  },
+  "timeline_updates": [
+    {
+      "video_timestamp_sec": 540.0,
+      "match_minute": 9,
+      "stoppage_minute": 0,
+      "update_type": "GOAL",
+      "team": "Arsenal",
+      "player": "Bukayo Saka",
+      "home_score": 1,
+      "away_score": 0,
+      "description": "Bukayo Saka mở tỷ số cho Arsenal sau đường chuyền dài của Ben White."
+    },
+    {
+      "video_timestamp_sec": 1080.0,
+      "match_minute": 18,
+      "stoppage_minute": 0,
+      "update_type": "GOAL",
+      "team": "Liverpool",
+      "player": "Virgil van Dijk",
+      "home_score": 1,
+      "away_score": 1,
+      "description": "Virgil van Dijk đánh đầu gỡ hòa 1-1 từ quả phạt góc."
+    },
+    {
+      "video_timestamp_sec": 1980.0,
+      "match_minute": 33,
+      "stoppage_minute": 0,
+      "update_type": "YELLOW_CARD",
+      "team": "Liverpool",
+      "player": "Alexis Mac Allister",
+      "description": "Thẻ vàng cho Alexis Mac Allister sau pha phạm lỗi với Bukayo Saka."
+    },
+    {
+      "video_timestamp_sec": 3780.0,
+      "match_minute": 63,
+      "stoppage_minute": 0,
+      "update_type": "SUBSTITUTION",
+      "team": "Liverpool",
+      "player": "Dominik Szoboszlai",
+      "player_out": "Alexis Mac Allister",
+      "description": "Liverpool thay người: Dominik Szoboszlai vào sân thay Alexis Mac Allister."
+    }
+  ],
+  "external_knowledge_base": [
+    {
+      "id": "kb_01",
+      "category": "away_form",
+      "entities": ["Liverpool"],
+      "priority": 1.0,
+      "content": "Trong 5 lần hành quân đến sân khách gần nhất trên mọi đấu trường, Liverpool đều bất bại và giữ sạch lưới tới 3 trận."
+    },
+    {
+      "id": "kb_02",
+      "category": "head_to_head",
+      "entities": ["Arsenal", "Liverpool"],
+      "priority": 1.0,
+      "content": "Arsenal đang có chuỗi 4 trận liên tiếp bất bại trước Liverpool tại Ngoại hạng Anh (2 thắng, 2 hòa), chuỗi thành tích tốt nhất của họ kể từ giai đoạn 2014-2016."
+    },
+    {
+      "id": "kb_03",
+      "category": "player_stat",
+      "entities": ["Bukayo Saka", "Arsenal"],
+      "priority": 0.95,
+      "content": "Bukayo Saka đã in dấu giày vào 10 bàn thắng chỉ sau 8 lần ra sân từ đầu mùa giải Ngoại hạng Anh (3 bàn thắng, 7 kiến tạo)."
+    },
+    {
+      "id": "kb_04",
+      "category": "player_stat",
+      "entities": ["Mohamed Salah", "Liverpool", "Arsenal"],
+      "priority": 0.95,
+      "content": "Mohamed Salah là cầu thủ rất có duyên với mành lưới Arsenal khi đã ghi tới 10 bàn thắng trong 14 lần chạm trán Pháo thủ tại Ngoại hạng Anh."
+    },
+    {
+      "id": "kb_05",
+      "category": "tactical",
+      "entities": ["Arsenal", "Declan Rice", "Mikel Merino"],
+      "priority": 0.85,
+      "content": "Cặp tiền vệ Declan Rice và Mikel Merino giúp Arsenal thắng tới 62% các pha tranh chấp tay đôi ở khu vực trung tuyến kể từ đầu hiệp đấu."
+    },
+    {
+      "id": "kb_06",
+      "category": "coach_trivia",
+      "entities": ["Arne Slot", "Liverpool"],
+      "priority": 0.85,
+      "content": "HLV Arne Slot trở thành chiến lược gia đầu tiên trong lịch sử Liverpool giành chiến thắng 11 trên 12 trận mở màn trên mọi đấu trường."
+    },
+    {
+      "id": "kb_07",
+      "category": "set_piece",
+      "entities": ["Arsenal"],
+      "priority": 0.9,
+      "content": "Tính từ đầu mùa trước đến nay, Arsenal là đội ghi nhiều bàn thắng từ các tình huống cố định nhất tại Ngoại hạng Anh với 26 pha lập công."
+    },
+    {
+      "id": "kb_08",
+      "category": "player_stat",
+      "entities": ["Dominik Szoboszlai", "Liverpool"],
+      "priority": 0.8,
+      "content": "Dominik Szoboszlai sở hữu quãng đường di chuyển trung bình 11.8 km mỗi 90 phút, dẫn đầu hàng tiền vệ Liverpool về cường độ pressing."
+    }
+  ]
+}

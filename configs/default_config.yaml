@@ -1,0 +1,35 @@
+stage1_video:
+  window_duration_sec: 15.0
+  overlap_duration_sec: 2.0
+  sample_fps: 2.0
+  decoder_backend: "auto"
+  min_pixels: 50176
+  max_pixels: 230400
+  frame_tensor_device: "auto"
+
+stage2_context:
+  rolling_history_size: 4
+  kb_top_k_candidates: 4
+  kb_category_diversity: true
+  language: "vi"
+
+stage3_model:
+  model_name_or_path: "Qwen/Qwen2.5-VL-7B-Instruct"
+  adapter_path: null
+  torch_dtype: "bfloat16"
+  attn_implementation: "auto"
+  device_map: "auto"
+  max_new_tokens: 220
+  temperature: 0.2
+  top_p: 0.9
+  do_sample: true
+  repetition_penalty: 1.08
+
+stage4_parser:
+  enable_overlap_dedup: true
+  overlap_tolerance_sec: 0.5
+
+output:
+  output_dir: "outputs"
+  save_jsonl: true
+  save_srt: true

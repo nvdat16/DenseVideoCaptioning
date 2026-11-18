@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+.env
+.venv/
+venv/
+outputs/
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.npy
+*.pt
+*.pth
+*.safetensors
